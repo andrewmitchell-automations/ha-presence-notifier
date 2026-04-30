@@ -1,0 +1,11 @@
+{
+  "name": "ha-presence-notifier",
+  "description": "Flips Claude's PushNotification calibration to proactive when Home Assistant confirms you're away from home.",
+  "version": "0.1.0",
+  "author": {
+    "name": "Andrew Mitchell"
+  },
+  "license": "MIT",
+  "keywords": ["home-assistant", "presence", "notifications", "stop-hook"],
+  "hooks": "./hooks/hooks.json"
+}
