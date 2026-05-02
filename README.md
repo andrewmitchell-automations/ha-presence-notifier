@@ -57,6 +57,12 @@ Anything outside `HA_PRESENT_STATES` — including `unknown`, `unavailable`, `no
 - A Home Assistant instance reachable from where Claude Code runs
 - `bash`, `curl`, and `jq` on `PATH`
 
+## Known quirk: the "Stop hook error" label
+
+When the hook blocks a Stop to redirect Claude into a `PushNotification` call, the chat surface shows it as `Stop hook error: ...`. This is *not* an error — the hook exits 0 with a valid `{"decision":"block","reason":"..."}`, which is the documented mechanism for a Stop hook to inject context for Claude's next turn. The plugin is working as designed; Claude Code's UI just labels every blocking decision the same way it labels a script crash.
+
+Tracked upstream in [anthropics/claude-code#34600](https://github.com/anthropics/claude-code/issues/34600). Until that's resolved, expect the redirect to look like an error in chat. The behavior is correct.
+
 ## License
 
 MIT
