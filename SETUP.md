@@ -29,9 +29,14 @@ You should see JSON with `entity_id`, `state`, and `attributes`. If you get a co
 
 ## 4. Install the plugin
 
-```sh
-/plugin install https://github.com/andrewmitchell-automations/ha-presence-notifier
+In Claude Code:
+
 ```
+/plugin marketplace add andrewmitchell-automations/ha-presence-notifier
+/plugin install ha-presence-notifier@ha-presence-notifier
+```
+
+The first command registers this repo as a plugin marketplace; the second installs the plugin from it.
 
 ## 5. Configure env vars
 

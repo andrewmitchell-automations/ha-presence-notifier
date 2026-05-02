@@ -1,0 +1,13 @@
+{
+  "name": "ha-presence-notifier",
+  "owner": {
+    "name": "Andrew Mitchell"
+  },
+  "plugins": [
+    {
+      "name": "ha-presence-notifier",
+      "source": "./",
+      "description": "Flips Claude's PushNotification calibration to proactive when Home Assistant confirms you're away from home."
+    }
+  ]
+}
