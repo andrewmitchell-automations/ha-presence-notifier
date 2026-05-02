@@ -6,6 +6,5 @@
     "name": "Andrew Mitchell"
   },
   "license": "MIT",
-  "keywords": ["home-assistant", "presence", "notifications", "stop-hook"],
-  "hooks": "./hooks/hooks.json"
+  "keywords": ["home-assistant", "presence", "notifications", "stop-hook"]
 }
