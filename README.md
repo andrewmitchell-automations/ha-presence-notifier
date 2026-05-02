@@ -21,7 +21,7 @@ Any infrastructure failure (network unreachable, bad token, timeout, parse error
 ## Install
 
 ```sh
-/plugin install <git-url-of-this-repo>
+/plugin install https://github.com/andrewmitchell-automations/ha-presence-notifier
 ```
 
 Then set three env vars (see [SETUP.md](./SETUP.md) for details on getting an HA token):

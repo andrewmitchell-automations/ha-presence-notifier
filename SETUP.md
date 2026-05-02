@@ -30,7 +30,7 @@ You should see JSON with `entity_id`, `state`, and `attributes`. If you get a co
 ## 4. Install the plugin
 
 ```sh
-/plugin install <git-url-of-this-repo>
+/plugin install https://github.com/andrewmitchell-automations/ha-presence-notifier
 ```
 
 ## 5. Configure env vars
