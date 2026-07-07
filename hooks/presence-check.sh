@@ -50,7 +50,7 @@ for present in "${present_array[@]}"; do
     fi
 done
 
-reason="User is confirmed away from home (verified via Home Assistant; presence state: \"${state}\"). Before stopping, call PushNotification with a one-line summary — what you finished, any blocker, or what you need from the user. Keep it under 200 chars. This overrides your default conservative notification posture; the away signal is verified."
+reason="User is confirmed away from home (verified via Home Assistant; presence state: \"${state}\"). If you need a reponse from the user, call PushNotification with a one-line summary of what you need. Keep it under 200 chars. Only call PushNotification if you need action from the user, and if you have not already called PushNotification this turn."
 
 jq -n --arg reason "$reason" '{decision: "block", reason: $reason}'
 exit 0
