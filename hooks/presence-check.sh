@@ -20,8 +20,39 @@ if [ "$stop_hook_active" = "true" ]; then
     exit 0
 fi
 
+# Read a 1Password secret reference with a hard timeout. macOS has no
+# timeout(1), and a hung `op` would stall every Stop. The watchdog must not
+# inherit stdout, or the caller's $(...) waits out the full sleep.
+op_read_with_timeout() {
+    local ref="$1" secs="$2" outf pid wpid rc
+    outf=$(mktemp) || return 1
+    op read "$ref" >"$outf" 2>/dev/null &
+    pid=$!
+    ( sleep "$secs"; kill -9 "$pid" ) >/dev/null 2>&1 &
+    wpid=$!
+    wait "$pid" 2>/dev/null
+    rc=$?
+    kill "$wpid" 2>/dev/null
+    [ "$rc" -eq 0 ] && cat "$outf"
+    rm -f "$outf"
+    return "$rc"
+}
+
+# HA_TOKEN_OP_REF lets the token stay in 1Password instead of settings.json.
+# HA_TOKEN wins when both are set.
+if [ -z "${HA_TOKEN:-}" ] && [ -n "${HA_TOKEN_OP_REF:-}" ]; then
+    if ! command -v op >/dev/null 2>&1; then
+        log "HA_TOKEN_OP_REF is set but the op CLI is not on PATH"
+        exit 0
+    fi
+    HA_TOKEN=$(op_read_with_timeout "$HA_TOKEN_OP_REF" 5) || {
+        log "op read failed or timed out for HA_TOKEN_OP_REF"
+        exit 0
+    }
+fi
+
 if [ -z "${HA_URL:-}" ] || [ -z "${HA_TOKEN:-}" ] || [ -z "${HA_PERSON_ENTITY:-}" ]; then
-    log "missing required env var (HA_URL, HA_TOKEN, HA_PERSON_ENTITY)"
+    log "missing required env var (HA_URL, HA_TOKEN or HA_TOKEN_OP_REF, HA_PERSON_ENTITY)"
     exit 0
 fi
 

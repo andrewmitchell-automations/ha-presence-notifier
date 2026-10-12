@@ -45,7 +45,8 @@ Then set three env vars (see [SETUP.md](./SETUP.md) for details on getting an HA
 | Var | Required | Default | Purpose |
 |---|---|---|---|
 | `HA_URL` | yes | — | Base URL of your Home Assistant instance |
-| `HA_TOKEN` | yes | — | Long-lived access token |
+| `HA_TOKEN` | yes, unless `HA_TOKEN_OP_REF` is set | — | Long-lived access token |
+| `HA_TOKEN_OP_REF` | no | — | 1Password secret reference (e.g. `op://Vault/Home Assistant/credential`) read with `op read` on each Stop when `HA_TOKEN` is not set. Keeps the token out of `settings.json`. Needs the `op` CLI signed in where Claude Code runs; adds about 0.5 s per turn. |
 | `HA_PERSON_ENTITY` | yes | — | e.g. `person.andrew` |
 | `HA_PRESENT_STATES` | no | `home` | Comma-separated state names that count as "present" (e.g. `home,Office` if you've renamed your home zone or want to be considered reachable while at the office) |
 

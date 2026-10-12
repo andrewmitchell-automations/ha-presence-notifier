@@ -52,7 +52,9 @@ Add to `~/.claude/settings.local.json` (or `.claude/settings.local.json` in a pr
 }
 ```
 
-Restart Claude Code. The hook is active immediately.
+To keep the token in 1Password instead, replace `HA_TOKEN` with `"HA_TOKEN_OP_REF": "op://<vault>/<item>/<field>"`. The hook runs `op read` on that reference (5 s timeout) whenever `HA_TOKEN` is not set.
+
+Restart Claude Code. The hook is active immediately. Running sessions keep the env they started with, so restart them after you change or rotate the token.
 
 ## 6. Verify
 
